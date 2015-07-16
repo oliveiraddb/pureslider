@@ -11,7 +11,7 @@ width = /*args.width || */getComputedStyle(container).width || "1000px",
 height = "200px",
 time = /*args.width || */3000,
 interval = 0;
-direction = /*args.direction || */"left",
+direction = /*args.direction || */"top",
 sliding = false,
 finishSliding = function(){
   sliding = false;
@@ -22,16 +22,16 @@ beginSlider = function(){ interval = setInterval(nextSlide, time); },
 mostraSlide = function(slideNumber) {
   if(sliding) return;
   sliding = true;
-  slider.style[direction] = slideNumber*-parseFloat(direction==="left"?width:height, 10)+"px";
   slider.addEventListener("transitionend", finishSliding, false);
+  slider.style[direction] = slideNumber*-parseFloat(direction==="left"?width:height, 10)+"px";
 },
 nextSlide = function() {
   if(currentSlide === length-1) currentSlide = -1;
-  mostraSlide(++currentSlide);
+  if(!sliding) mostraSlide(++currentSlide);
 },
 previousSlide = function () {
   if(currentSlide === 0) currentSlide = length;
-  mostraSlide(--currentSlide);
+  if(!sliding) mostraSlide(--currentSlide);
 },
 commandButton = function (direction, size, color) {
   var
